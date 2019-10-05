@@ -16,6 +16,7 @@ namespace WebAddressbookTests
         {
         }
 
+
         public ContactHelper Create(ContactData contact)
         {
             InitContactCreation();
@@ -25,6 +26,24 @@ namespace WebAddressbookTests
             return this;
         }
 
+        public ContactHelper Modify(int p, ContactData newData)
+        {
+            //SelectContact(p);
+            InitContactModification();
+            FillContactForm(newData);
+            SubmitContactModification();
+            ReturnToHomePage();
+
+            return this;
+        }
+
+        public ContactHelper Remove(int p)
+        {
+            SelectContact();
+            RemoveContact();
+            driver.SwitchTo().Alert().Accept();
+            return this;
+        }
         public ContactHelper InitContactCreation()
         {
             driver.FindElement(By.LinkText("add new")).Click();
@@ -60,20 +79,20 @@ namespace WebAddressbookTests
             driver.FindElement(By.Name("email3")).SendKeys(contact.email3);
             driver.FindElement(By.Name("homepage")).Clear();
             driver.FindElement(By.Name("homepage")).SendKeys(contact.homepage);
-            driver.FindElement(By.Name("bday")).Click();
-            new SelectElement(driver.FindElement(By.Name("bday"))).SelectByText(contact.bday);
+           // driver.FindElement(By.Name("bday")).Click();
+           // new SelectElement(driver.FindElement(By.Name("bday"))).SelectByText(contact.bday);
             //           driver.FindElement(By.CssSelector("option[value=\"27\"]")).Click();
-            driver.FindElement(By.Name("bmonth")).Click();
-            new SelectElement(driver.FindElement(By.Name("bmonth"))).SelectByText(contact.bmonth);
+           // driver.FindElement(By.Name("bmonth")).Click();
+          //  new SelectElement(driver.FindElement(By.Name("bmonth"))).SelectByText(contact.bmonth);
             //           driver.FindElement(By.CssSelector("option[value=\"May\"]")).Click();
             driver.FindElement(By.Name("byear")).Click();
             driver.FindElement(By.Name("byear")).Clear();
             driver.FindElement(By.Name("byear")).SendKeys(contact.byear);
-            driver.FindElement(By.Name("aday")).Click();
-            new SelectElement(driver.FindElement(By.Name("aday"))).SelectByText(contact.aday);
+         //   driver.FindElement(By.Name("aday")).Click();
+          //  new SelectElement(driver.FindElement(By.Name("aday"))).SelectByText(contact.aday);
             //           driver.FindElement(By.CssSelector("select[name=\"aday\"] > option[value=\"17\"]")).Click();
-            driver.FindElement(By.Name("amonth")).Click();
-            new SelectElement(driver.FindElement(By.Name("amonth"))).SelectByText(contact.amonth);
+          //  driver.FindElement(By.Name("amonth")).Click();
+         //   new SelectElement(driver.FindElement(By.Name("amonth"))).SelectByText(contact.amonth);
             //           driver.FindElement(By.CssSelector("select[name=\"amonth\"] > option[value=\"June\"]")).Click();
             driver.FindElement(By.Name("ayear")).Click();
             driver.FindElement(By.Name("ayear")).Clear();
@@ -96,6 +115,27 @@ namespace WebAddressbookTests
         public ContactHelper ReturnToHomePage()
         {
             driver.FindElement(By.LinkText("home page")).Click();
+            return this;
+        }
+        public ContactHelper SubmitContactModification()
+        {
+            driver.FindElement(By.Name("update")).Click();
+            return this;
+        }
+
+        public ContactHelper InitContactModification()
+        {
+            driver.FindElement(By.CssSelector("img[alt=\"Edit\"]")).Click();
+            return this;
+        }
+        public ContactHelper SelectContact()
+        {
+            driver.FindElement(By.Name("selected[]")).Click();
+            return this;
+        }
+        public ContactHelper RemoveContact()
+        {
+            driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
             return this;
         }
     }
