@@ -49,7 +49,7 @@ namespace WebAddressbookTests
             }
             set
             {
-                header = value;
+                footer = value;
             }
         }
     }

@@ -46,9 +46,9 @@ namespace WebAddressbookTests
             Login(new AccountData("admin", "secret"));
             GoToGroupsPage();
             InitGroupCreation();
-            GroupData group = new GroupData("test1");
-            group.Header = "test2";
-            group.Footer = "test3";
+            GroupData group = new GroupData("group1");
+            //group.Header = "test2";
+            //group.Footer = "test3";
             FillGroupForm(group);
             SubmitGroupCreation();
             ReturnToGroupsPage();

@@ -7,7 +7,7 @@
       <FileName>Square.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="addressbook_wt.Figure" Collapsed="true">
+  <Class Name="addressbook_wt.Figure">
     <Position X="2" Y="0.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAACAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
