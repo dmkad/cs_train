@@ -11,6 +11,7 @@ namespace WebAddressbookTests
     public class LoginTests : TestBase
     {
         [Test]
+
         public void LoginWithValidCredentials()
         {
             // prepare
@@ -21,21 +22,22 @@ namespace WebAddressbookTests
             app.Auth.Login(account);
 
             //verification
-            Assert.IsTrue(app.Auth.IsLoggedIn());
+            Assert.IsTrue(app.Auth.IsLoggedIn(account));
         }
 
         [Test]
+
         public void LoginWithInValidCredentials()
         {
             // prepare
             app.Auth.Logout();
 
             // action
-            AccountData account = new AccountData("admin", "123456");
+            AccountData account = new AccountData("odmin", "123");
             app.Auth.Login(account);
 
             //verification
-            Assert.IsFalse(app.Auth.IsLoggedIn());
+            Assert.IsFalse(app.Auth.IsLoggedIn(account));
         }
     }
 }

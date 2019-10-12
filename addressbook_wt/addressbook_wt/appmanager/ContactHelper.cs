@@ -103,5 +103,20 @@ namespace WebAddressbookTests
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
             return this;
         }
+
+        public bool IsContactPresent()
+        {
+            return IsElementPresent(By.Name("selected[]"))
+                && IsElementPresent(By.Id("maintable"));
+        }
+
+        public void TestContactPresent()
+        {
+            if (IsContactPresent() == false)
+            {
+                ContactData contact = new ContactData("contac1", "contact2");
+                Create(contact);
+            }
+        }
     }
 }

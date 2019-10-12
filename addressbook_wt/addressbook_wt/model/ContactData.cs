@@ -37,6 +37,5 @@ namespace WebAddressbookTests
         public string address2 { get; set; } = "";
         public string phone2 { get; set; } = "";
         public string notes { get; set; } = "";
-
     }
 }

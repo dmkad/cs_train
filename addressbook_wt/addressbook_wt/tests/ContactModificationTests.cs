@@ -18,6 +18,7 @@ namespace WebAddressbookTests
             newData.company = "vvvvvvvvvvvvvo";
             newData.email = null;
 
+            app.Contacts.TestContactPresent();
             app.Contacts.Modify(1, newData);
         }
     }

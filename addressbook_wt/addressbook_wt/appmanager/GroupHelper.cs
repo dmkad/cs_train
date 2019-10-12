@@ -93,5 +93,22 @@ namespace WebAddressbookTests
             driver.FindElement(By.Name("edit")).Click();
             return this;
         }
+
+        public bool IsGroupPresent()
+        {
+            return IsElementPresent(By.Name("selected[]"))
+                && driver.FindElement(By.Id("content")).FindElement(By.TagName("h1")).Text
+                == "Groups";
+        }
+
+        public void TestGroupPresent()
+        {
+            manager.Navigator.GoToGroupsPage();
+            if (IsGroupPresent() == false)
+            {
+                GroupData group = new GroupData("Group1");
+                Create(group);
+            }
+        }
     }
 }
