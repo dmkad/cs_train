@@ -17,10 +17,11 @@ namespace WebAddressbookTests
             newData.Header = null;
             newData.Footer = null;
 
+            app.Groups.TestGroupPresent();
+
             List<GroupData> oldGroups = app.Groups.GetGroupList();
             GroupData oldData = oldGroups[0];
 
-            app.Groups.TestGroupPresent();
             app.Groups.Modify(0, newData);
 
             Assert.AreEqual(oldGroups.Count, app.Groups.GetGroupCount());
