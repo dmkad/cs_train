@@ -33,7 +33,7 @@ namespace WebAddressbookTests
 
         public override string ToString()
         {
-            return string.Concat(firstname, " ", lastname);
+            return firstname + lastname;
         }
 
         public int CompareTo(ContactData other)
