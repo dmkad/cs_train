@@ -26,9 +26,25 @@ namespace WebAddressbookTests
             return this;
         }
 
+        public List<ContactData> GetContactList()
+        {
+            List<ContactData> contacts = new List<ContactData>();
+            ICollection<IWebElement> elements = driver.FindElements(By.XPath("//tr[@name='entry']"));
+            foreach (IWebElement element in elements)
+            {
+                IList<IWebElement> cells = element.FindElements(By.TagName("td"));
+                var c2 = cells.ElementAt(1).Text;
+                var c3 = cells.ElementAt(2).Text;
+                var contact = new ContactData(c3, c2);
+            //    contact.lastname = c2;
+                contacts.Add(contact);
+            }
+            return contacts;
+        }
+
         public ContactHelper Modify(int p, ContactData newData)
         {
-            //SelectContact(p);
+            SelectContact(p);
             InitContactModification();
             FillContactForm(newData);
             SubmitContactModification();
@@ -39,7 +55,7 @@ namespace WebAddressbookTests
 
         public ContactHelper Remove(int p)
         {
-            SelectContact();
+            SelectContact(p);
             RemoveContact();
             driver.SwitchTo().Alert().Accept();
             return this;
@@ -93,9 +109,9 @@ namespace WebAddressbookTests
             driver.FindElement(By.CssSelector("img[alt=\"Edit\"]")).Click();
             return this;
         }
-        public ContactHelper SelectContact()
+        public ContactHelper SelectContact(int index)
         {
-            driver.FindElement(By.Name("selected[]")).Click();
+            driver.FindElement(By.CssSelector("#maintable tr[name='entry'] > td:nth-child("+ (index + 1) +")")).Click();
             return this;
         }
         public ContactHelper RemoveContact()
@@ -114,7 +130,7 @@ namespace WebAddressbookTests
         {
             if (IsContactPresent() == false)
             {
-                ContactData contact = new ContactData("contac1", "contact2");
+                ContactData contact = new ContactData("contact1", "contact2");
                 Create(contact);
             }
         }
