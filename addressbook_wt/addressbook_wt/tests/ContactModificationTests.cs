@@ -14,9 +14,9 @@ namespace WebAddressbookTests
         public void ContactModificationTest()
         {
             ContactData newContact = new ContactData("John");
-            newContact.middlename = "Middle";
-            newContact.lastname = "Lastname";
-            newContact.company = "vvvvvvvvvvvvvo";
+            newContact.Middlename = "Middle";
+            newContact.Lastname = "Lastname";
+            newContact.Company = "vvvvvvvvvvvvvo";
             newContact.email = null;
 
             app.Contacts.TestContactPresent();
@@ -27,8 +27,8 @@ namespace WebAddressbookTests
             app.Contacts.Modify(0, newContact);
 
             List<ContactData> newContacts = app.Contacts.GetContactList();
-            oldContacts[0].firstname = newContact.firstname;
-            oldContacts[0].lastname = newContact.lastname;
+            oldContacts[0].Firstname = newContact.Firstname;
+            oldContacts[0].Lastname = newContact.Lastname;
             oldContacts.Sort();
             newContacts.Sort();
             Assert.AreEqual(oldContacts, newContacts);
@@ -37,8 +37,8 @@ namespace WebAddressbookTests
             {
                 if (contact.Id == newContact.Id)
                 {
-                    Assert.AreEqual(newContact.lastname, contact.lastname);
-                    Assert.AreEqual(newContact.firstname, contact.firstname);
+                    Assert.AreEqual(newContact.Lastname, contact.Lastname);
+                    Assert.AreEqual(newContact.Firstname, contact.Firstname);
                 }
             }
         }

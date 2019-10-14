@@ -18,7 +18,7 @@ namespace WebAddressbookTests
 
             app.Groups.TestGroupPresent();
             app.Groups.Remove(0);
-
+            Thread.Sleep(5000);
             Assert.AreEqual(oldGroups.Count - 1, app.Groups.GetGroupCount());
 
             List<GroupData> newGroups = app.Groups.GetGroupList();

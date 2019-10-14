@@ -17,15 +17,6 @@ namespace WebAddressbookTests
         }
 
 
-        public ContactHelper Create(ContactData contact)
-        {
-            InitContactCreation();
-            FillContactForm(contact);
-            SubmitContactCreation();
-            ReturnToHomePage();
-            return this;
-        }
-
         private List<ContactData> contactCache = null;
 
         public List<ContactData> GetContactList()
@@ -41,7 +32,7 @@ namespace WebAddressbookTests
                     var c2 = cells.ElementAt(1).Text;
                     var c3 = cells.ElementAt(2).Text;
                     var contact = new ContactData(c3);
-                    contact.lastname = c2;
+                    contact.Lastname = c2;
                     contact.Id = element.FindElement(By.TagName("input")).GetAttribute("value");
                     contactCache.Add(contact);
                 }
@@ -49,16 +40,25 @@ namespace WebAddressbookTests
             return new List<ContactData>(contactCache);
         }
 
-        public int GetContactCount()
+        internal int GetContactCount()
         {
             return driver.FindElements(By.XPath("//tr[@name='entry']")).Count;
         }
 
-        public ContactHelper Modify(int p, ContactData newData)
+        public ContactHelper Create(ContactData contact)
+        {
+            InitContactCreation();
+            FillContactForm(contact);
+            SubmitContactCreation();
+            ReturnToHomePage();
+            return this;
+        }
+
+        public ContactHelper Modify(int p, ContactData newContact)
         {
             SelectContact(p);
             InitContactModification();
-            FillContactForm(newData);
+            FillContactForm(newContact);
             SubmitContactModification();
             ReturnToHomePage();
             return this;
@@ -78,12 +78,12 @@ namespace WebAddressbookTests
         }
         public ContactHelper FillContactForm(ContactData contact)
         {
-            Type(By.Name("firstname"), contact.firstname);
-            Type(By.Name("middlename"), contact.middlename);
-            Type(By.Name("lastname"), contact.lastname);
+            Type(By.Name("firstname"), contact.Firstname);
+            Type(By.Name("middlename"), contact.Middlename);
+            Type(By.Name("lastname"), contact.Lastname);
             Type(By.Name("title"), contact.title);
-            Type(By.Name("company"), contact.company);
-            Type(By.Name("address"), contact.address);
+            Type(By.Name("company"), contact.Company);
+            Type(By.Name("address"), contact.Address);
             Type(By.Name("home"), contact.home);
             Type(By.Name("mobile"), contact.mobile);
             Type(By.Name("work"), contact.work);

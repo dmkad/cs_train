@@ -10,7 +10,7 @@ namespace WebAddressbookTests
     {
         public ContactData(string firstname)
         {
-            this.firstname = firstname;
+            this.Firstname = firstname;
         }
 
         public bool Equals(ContactData other)
@@ -23,7 +23,7 @@ namespace WebAddressbookTests
             {
                 return true;
             }
-            return firstname == other.firstname && lastname == other.lastname;
+            return Firstname == other.Firstname && Lastname == other.Lastname;
         }
         public override int GetHashCode()
         {
@@ -32,7 +32,7 @@ namespace WebAddressbookTests
 
         public override string ToString()
         {
-            return string.Concat(firstname, " ", lastname);
+            return string.Concat(Firstname, " ", Lastname);
         }
 
         public int CompareTo(ContactData other)
@@ -41,11 +41,11 @@ namespace WebAddressbookTests
             {
                 return 1;
             }
-            if (lastname.CompareTo(other.lastname) == 0)
+            if (Lastname.CompareTo(other.Lastname) == 0)
             {
-                return firstname.CompareTo(other.firstname);
+                return Firstname.CompareTo(other.Firstname);
             }
-            return lastname.CompareTo(other.lastname);
+            return Lastname.CompareTo(other.Lastname);
         }
         //public int CompareTo(ContactData other)
         //{
@@ -59,12 +59,12 @@ namespace WebAddressbookTests
 
 
         public string Id { get; set; }
-        public string firstname { get; set; }
-        public string middlename { get; set; } = "";
-        public string lastname { get; set; } = "";
+        public string Firstname { get; set; }
+        public string Middlename { get; set; } = "";
+        public string Lastname { get; set; } = "";
         public string title { get; set; } = "";
-        public string company { get; set; } = "";
-        public string address { get; set; } = "";
+        public string Company { get; set; } = "";
+        public string Address { get; set; } = "";
         public string home { get; set; } = "";
         public string mobile { get; set; } = "";
         public string work { get; set; } = "";
