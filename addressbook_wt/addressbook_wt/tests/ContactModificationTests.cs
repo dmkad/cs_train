@@ -13,9 +13,9 @@ namespace WebAddressbookTests
         [Test]
         public void ContactModificationTest()
         {
-            ContactData newContact = new ContactData("John");
+            ContactData newContact = new ContactData("John", "SuperJohn");
             newContact.Middlename = "Middle";
-            newContact.Lastname = "Lastname";
+           // newContact.Lastname = "Lastname";
             newContact.Company = "vvvvvvvvvvvvvo";
             newContact.email = null;
 

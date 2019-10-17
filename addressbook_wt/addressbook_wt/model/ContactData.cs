@@ -8,9 +8,12 @@ namespace WebAddressbookTests
 {
     public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     {
-        public ContactData(string firstname)
+        private string allPhones;
+
+        public ContactData(string firstname, string lastname)
         {
-            this.Firstname = firstname;
+            Firstname = firstname;
+            Lastname = lastname;
         }
 
         public bool Equals(ContactData other)
@@ -65,14 +68,42 @@ namespace WebAddressbookTests
         public string title { get; set; } = "";
         public string Company { get; set; } = "";
         public string Address { get; set; } = "";
-        public string home { get; set; } = "";
-        public string mobile { get; set; } = "";
-        public string work { get; set; } = "";
-        public string fax { get; set; } = "";
+        public string HomePhone { get; set; } = "";
+        public string MobilePhone { get; set; } = "";
+        public string WorkPhone { get; set; } = "";
+        public string AllPhones 
+        { 
+            get { 
+                if (allPhones != null)
+                {
+                    return allPhones;
+                }
+                else
+                {
+                    return (CleanUp(HomePhone) + CleanUp(MobilePhone) + CleanUp(WorkPhone)).Trim();
+                }
+
+            } 
+            set {
+                allPhones = value;
+
+            } 
+        }
+
+        private string CleanUp(string phone)
+        {
+            if (phone == null || phone == "")
+            {
+                return "";
+            }
+            return phone.Replace(" ", "").Replace("-", "").Replace("(", "").Replace(")", "") + "\r\n";
+        }
+
+        public string Fax { get; set; } = "";
         public string email { get; set; } = "";
         public string email2 { get; set; } = "";
         public string email3 { get; set; } = "";
-        public string homepage { get; set; } = "";
+        public string HomePage { get; set; } = "";
         public string bday { get; set; } = "";
         public string bmonth { get; set; } = "-";
         public string byear { get; set; } = "";

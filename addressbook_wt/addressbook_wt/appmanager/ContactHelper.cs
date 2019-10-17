@@ -16,6 +16,46 @@ namespace WebAddressbookTests
         {
         }
 
+        public ContactData GetContactInformationFromTable(int index)
+        {
+            manager.Navigator.GoToHomePage();
+
+            IList<IWebElement> cells = driver.FindElements(By.Name("entry"))[index]
+                .FindElements(By.TagName("td"));
+            string lastName = cells[1].Text;
+            string firstName = cells[2].Text;
+            string address = cells[3].Text;
+            string allPhones = cells[5].Text;
+
+            return new ContactData(firstName, lastName)
+            {
+                Address = address,
+                AllPhones = allPhones,
+            };
+
+        }
+
+        public ContactData GetContactInformationFromEditForm(int index)
+        {
+            manager.Navigator.GoToHomePage();
+            InitContactModification(0);
+
+            string firstName = driver.FindElement(By.Name("firstname")).GetAttribute("value");
+            string lastname = driver.FindElement(By.Name("lastname")).GetAttribute("value");
+            string address = driver.FindElement(By.Name("address")).GetAttribute("value");
+
+            string homePhone = driver.FindElement(By.Name("home")).GetAttribute("value");
+            string mobilePhone = driver.FindElement(By.Name("mobile")).GetAttribute("value");
+            string workPhone = driver.FindElement(By.Name("work")).GetAttribute("value");
+
+            return new ContactData(firstName, lastname)
+            {
+                Address = address,
+                HomePhone = homePhone,
+                MobilePhone = mobilePhone,
+                WorkPhone = workPhone
+            };
+        }
 
         private List<ContactData> contactCache = null;
 
@@ -31,8 +71,8 @@ namespace WebAddressbookTests
                     IList<IWebElement> cells = element.FindElements(By.TagName("td"));
                     var c2 = cells.ElementAt(1).Text;
                     var c3 = cells.ElementAt(2).Text;
-                    var contact = new ContactData(c3);
-                    contact.Lastname = c2;
+                    var contact = new ContactData(c3, c2);
+                    //contact.Lastname = c2;
                     contact.Id = element.FindElement(By.TagName("input")).GetAttribute("value");
                     contactCache.Add(contact);
                 }
@@ -84,14 +124,14 @@ namespace WebAddressbookTests
             Type(By.Name("title"), contact.title);
             Type(By.Name("company"), contact.Company);
             Type(By.Name("address"), contact.Address);
-            Type(By.Name("home"), contact.home);
-            Type(By.Name("mobile"), contact.mobile);
-            Type(By.Name("work"), contact.work);
-            Type(By.Name("fax"), contact.fax);
+            Type(By.Name("home"), contact.HomePhone);
+            Type(By.Name("mobile"), contact.MobilePhone);
+            Type(By.Name("work"), contact.WorkPhone);
+            Type(By.Name("fax"), contact.Fax);
             Type(By.Name("email"), contact.email);
             Type(By.Name("email2"), contact.email2);
             Type(By.Name("email3"), contact.email3);
-            Type(By.Name("homepage"), contact.homepage);
+            Type(By.Name("homepage"), contact.HomePage);
             Type(By.Name("byear"), contact.byear);
             Type(By.Name("ayear"), contact.ayear);
             Type(By.Name("address2"), contact.address2);
@@ -122,11 +162,21 @@ namespace WebAddressbookTests
             driver.FindElement(By.CssSelector("img[alt=\"Edit\"]")).Click();
             return this;
         }
+
+        public ContactHelper InitContactModification(int index)
+        {
+            driver.FindElements(By.Name("entry"))[index]
+                .FindElements(By.TagName("td"))[7]
+                .FindElement(By.TagName("a")).Click();
+            return this;
+        }
+
         public ContactHelper SelectContact(int index)
         {
             driver.FindElement(By.CssSelector("#maintable tr[name='entry'] > td:nth-child("+ (index + 1) +")")).Click();
             return this;
         }
+
         public ContactHelper RemoveContact()
         {
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
@@ -144,7 +194,7 @@ namespace WebAddressbookTests
         {
             if (IsContactPresent() == false)
             {
-                ContactData contact = new ContactData("Contact1");
+                ContactData contact = new ContactData("Contact1", "Contact2");
                 Create(contact);
             }
         }
