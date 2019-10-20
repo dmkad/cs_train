@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 namespace WebAddressbookTests
 {
     public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     {
         private string allPhones;
+        private string allEmail;
+        private string detailsInformation;
 
         public ContactData(string firstname, string lastname)
         {
@@ -71,6 +74,9 @@ namespace WebAddressbookTests
         public string HomePhone { get; set; } = "";
         public string MobilePhone { get; set; } = "";
         public string WorkPhone { get; set; } = "";
+        public string Email { get; set; } = "";
+        public string Email2 { get; set; } = "";
+        public string Email3 { get; set; } = "";
         public string AllPhones 
         { 
             get { 
@@ -90,13 +96,62 @@ namespace WebAddressbookTests
             } 
         }
 
+        public string AllEmail
+        {
+            get
+            {
+                if (allEmail != null)
+                {
+                    return allEmail;
+                }
+                else
+                {
+                    return (NextLine(Email) + NextLine(Email2) + Email3).Trim();
+                }
+            }
+            set
+            {
+                allEmail = value;
+            }
+        }
+        public string DetailsInformation
+        {
+            get
+            {
+                if (detailsInformation != null)
+                {
+                    return detailsInformation;
+                }
+                else
+                {
+                    return (Firstname + " " + NextLine(Lastname) + NextLine(Address) + "\r\n"
+                        + NextLine(HomePhone).Insert(0, "H: ") + NextLine(MobilePhone).Insert(0, "M: ")
+                        + NextLine(WorkPhone).Insert(0, "W: ") + "\r\n" + NextLine(Email)
+                        + NextLine(Email2) + NextLine(Email3)).Trim();
+                }
+            }
+            set
+            {
+                detailsInformation = value;
+            }
+        }
+
         private string CleanUp(string phone)
         {
             if (phone == null || phone == "")
             {
                 return "";
             }
-            return phone.Replace(" ", "").Replace("-", "").Replace("(", "").Replace(")", "") + "\r\n";
+            return Regex.Replace(phone, "[ -()]", "") + "\r\n";
+        }
+
+        private string NextLine(string item)
+        {
+            if (item == null || item == "")
+            {
+                return "";
+            }
+            return item + "\r\n";
         }
 
         public string Fax { get; set; } = "";
@@ -107,7 +162,7 @@ namespace WebAddressbookTests
         public string bday { get; set; } = "";
         public string bmonth { get; set; } = "-";
         public string byear { get; set; } = "";
-        public string aday { get; set; } = "";
+        public string Aday { get; set; } = "";
         public string amonth { get; set; } = "-";
         public string ayear { get; set; } = "";
         public string address2 { get; set; } = "";

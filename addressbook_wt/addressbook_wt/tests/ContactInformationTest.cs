@@ -20,7 +20,18 @@ namespace WebAddressbookTests
             // verification
             Assert.AreEqual(fromTable, fromForm);
             Assert.AreEqual(fromTable.Address, fromForm.Address);
+            Assert.AreEqual(fromTable.AllEmail, fromForm.AllEmail);
             Assert.AreEqual(fromTable.AllPhones, fromForm.AllPhones);
+        }
+
+        [Test]
+        public void TestContactDetailsInformation()
+        {
+            ContactData fromForm = app.Contacts.GetContactInformationFromEditForm(0);
+            ContactData fromDetails = app.Contacts.GetContactInformationFromDetails(0);
+
+            //проверка соответствия информации на странице просмотра свойств контакта с информацией на форме
+            Assert.AreEqual(fromDetails.DetailsInformation, fromForm.DetailsInformation);
         }
     }
 }
